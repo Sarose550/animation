@@ -47,7 +47,6 @@ def clear_zbuffer( zb ):
 
 def save_ppm( screen, fname ):
     f = open( fname, 'w' )
-    print("saving to " + fname)
     ppm = 'P3\n' + str(len(screen[0])) +' '+ str(len(screen)) +' '+ str(MAX_COLOR) +'\n'
     for y in range( len(screen) ):
         row = ''
