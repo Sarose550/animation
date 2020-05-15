@@ -83,7 +83,7 @@ def save_extension( screen, fname ):
 def display( screen ):
     ppm_name = 'pic.ppm'
     save_ppm( screen, ppm_name )
-    p = subprocess.Popen( ['imdisplay', ppm_name], stdin=subprocess.PIPE, stdout = subprocess.PIPE )
+    p = subprocess.Popen( ['display', ppm_name], stdin=subprocess.PIPE, stdout = subprocess.PIPE )
     p.communicate()
     remove(ppm_name)
 
@@ -91,4 +91,4 @@ def make_animation( name ):
     name_arg = 'anim/' + name + '*'
     name = name + '.gif'
     print('Saving animation as ' + name)
-    subprocess.call(["magick convert", "-delay", "1.7", name_arg, name])
+    subprocess.call(["convert", "-delay", "1.7", name_arg, name])
