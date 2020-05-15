@@ -159,17 +159,26 @@ def run(filename):
                 draw_lines(tmp, screen, zbuffer, color)
                 tmp = []
             elif c == 'move':
-                tmp = make_translate(args[0], args[1], args[2])
+                if command['knob']:
+                    tmp = make_translate(args[0] * symbols[command['knob']][1], args[1] * symbols[command['knob']][1], args[2] * symbols[command['knob']][1])
+                else:
+                    tmp = make_translate(args[0], args[1], args[2])
                 matrix_mult(stack[-1], tmp)
                 stack[-1] = [x[:] for x in tmp]
                 tmp = []
             elif c == 'scale':
-                tmp = make_scale(args[0], args[1], args[2])
+                if command['knob']:
+                    tmp = make_scale(args[0] * symbols[command['knob']][1], args[1] * symbols[command['knob']][1], args[2] * symbols[command['knob']][1])
+                else:
+                    tmp = make_scale(args[0], args[1], args[2])
                 matrix_mult(stack[-1], tmp)
                 stack[-1] = [x[:] for x in tmp]
                 tmp = []
             elif c == 'rotate':
-                theta = args[1] * (math.pi/180)
+                if command['knob']:
+                    theta = args[1] * (math.pi/180) * symbols[command['knob']][1]
+                else:
+                    theta = args[1] * (math.pi/180)
                 if args[0] == 'x':
                     tmp = make_rotX(theta)
                 elif args[0] == 'y':
@@ -186,7 +195,7 @@ def run(filename):
             elif c == 'display':
                 display(screen)
             elif c == 'save':
-                save_extension(screen, args[0])
+                save_extension(screen, args[0] + '.png')
             # end operation loop
         if num_frames > 1:
             save_extension(screen, "anim/" + name + "%03d"%frame + '.png')
